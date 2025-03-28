@@ -3,6 +3,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Categoria;
 import com.example.demo.model.Producto;
+import com.example.demo.servicio.CategoriaService;
 import com.example.demo.servicio.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,10 @@ public class ProductoController {
     @Autowired
     private ProductoService productoService;
 
+    
+    @Autowired
+    private CategoriaService categoriaService;
+
     @GetMapping
     public String listar(Model model) {
         model.addAttribute("productos", productoService.findAll());
@@ -25,6 +30,7 @@ public class ProductoController {
     @GetMapping("/nuevo")
     public String mostrarFormularioCrear(Model model) {
         model.addAttribute("producto", new Producto());
+        model.addAttribute("categorias", categoriaService.findAll());
         return "productos/formulario";
     }
 
@@ -37,6 +43,7 @@ public class ProductoController {
     @GetMapping("/editar/{id}")
     public String mostrarFormularioEditar(@PathVariable Integer id, Model model) {
         productoService.findById(id).ifPresent(producto -> model.addAttribute("producto", producto));
+        model.addAttribute("categorias", categoriaService.findAll());
         return "productos/formulario";
     }
 

@@ -3,6 +3,8 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Orden;
 import com.example.demo.servicio.OrdenService;
+import com.example.demo.servicio.UsuarioService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,15 +17,21 @@ public class OrdenController {
     @Autowired
     private OrdenService ordenService;
 
+
+    @Autowired
+    private UsuarioService usuarioService;
+
     @GetMapping
     public String listar(Model model) {
         model.addAttribute("ordenes", ordenService.findAll());
+        model.addAttribute("usuarios", usuarioService.findAll());
         return "ordenes/lista";
     }
 
     @GetMapping("/nuevo")
     public String mostrarFormularioCrear(Model model) {
         model.addAttribute("orden", new Orden());
+        model.addAttribute("usuarios", usuarioService.findAll());
         return "ordenes/formulario";
     }
 
@@ -36,6 +44,7 @@ public class OrdenController {
     @GetMapping("/editar/{id}")
     public String mostrarFormularioEditar(@PathVariable Integer id, Model model) {
         ordenService.findById(id).ifPresent(orden -> model.addAttribute("orden", orden));
+        model.addAttribute("usuarios", usuarioService.findAll());
         return "ordenes/formulario";
     }
 
