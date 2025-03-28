@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Órdenes</title>
+</head>
+<body>
+    <h1>Órdenes</h1>
+    <a th:href="@{/ordenes/nuevo}">Nueva Orden</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Usuario ID</th>
+                <th>Total Precio</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="orden : ${ordenes}">
+                <td th:text="${orden.id}"></td>
+                <td th:text="${orden.usuario.id}"></td>
+                <td th:text="${orden.totalPrecio}"></td>
+                <td th:text="${orden.estado}"></td>
+                <td>
+                    <a th:href="@{/ordenes/editar/{id}(id=${orden.id})}">Editar</a>
+                    <a th:href="@{/ordenes/eliminar/{id}(id=${orden.id})}">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/logout}">Cerrar Sesión</a>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${proveedor.id != null ? 'Editar Proveedor' : 'Nuevo Proveedor'}"></title>
+</head>
+<body>
+    <h1 th:text="${proveedor.id != null ? 'Editar Proveedor' : 'Nuevo Proveedor'}"></h1>
+    <form th:action="${proveedor.id != null} ? @{/proveedores/actualizar/{id}(id=${proveedor.id})} : @{/proveedores}" 
+          th:object="${proveedor}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <label>Nombre:</label>
+        <input type="text" th:field="*{nombre}" required /><br/>
+        <label>Contacto:</label>
+        <input type="text" th:field="*{contacto}" required /><br/>
+        <button type="submit">Guardar</button>
+    </form>
+    <a th:href="@{/proveedores}">Volver</a>
+</body>
+</html>

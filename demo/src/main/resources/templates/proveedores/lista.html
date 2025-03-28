@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Proveedores</title>
+</head>
+<body>
+    <h1>Proveedores</h1>
+    <a th:href="@{/proveedores/nuevo}">Nuevo Proveedor</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Contacto</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="proveedor : ${proveedores}">
+                <td th:text="${proveedor.id}"></td>
+                <td th:text="${proveedor.nombre}"></td>
+                <td th:text="${proveedor.contacto}"></td>
+                <td>
+                    <a th:href="@{/proveedores/editar/{id}(id=${proveedor.id})}">Editar</a>
+                    <a th:href="@{/proveedores/eliminar/{id}(id=${proveedor.id})}">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/logout}">Cerrar Sesión</a>
+</body>
+</html>
